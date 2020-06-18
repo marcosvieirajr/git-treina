@@ -69,6 +69,7 @@ git reset README.md # revert the index changes for README.md files
 git reset --soft f5e4dfb # does not touch the index file or the working tree
 git reset f5e4dfb # --mixed resets the index but not the working tree
 git reset --hard f5e4dfb # resets the index and working tree
+git reset --hard [ HEAD | HEAD~0 ] # reset you back to the most recent commit and get rid (delete) of working tree
 git reset [ --soft | --hard ] [ HEAD^ | HEAD~1 ] # reset (delete) head commit
 git reset [ --soft | --hard ] HEAD~3 # reset (delete) the last 3 commits
 ```
@@ -80,3 +81,53 @@ git restore . # to restore all working tree files
 git restore hello.txt # to discard hello.txt changes in working directory
 git restore --staged hello.txt # to unstage hello.txt from index
 ```
+
+#### - `rebase` reapply commits on top of another base tip
+
+```bash
+# assume the following history exists and the current branch is "topic"
+
+          A---B---C topic
+         /
+    D---E---F---G master
+
+git rebase master # reapply commits on top of "topic" base tip
+git rebase master topic # it is just a short-hand of 'git checkout topic' followed by 'git rebase master'
+
+                  A---B---C topic
+                 /
+    D---E---F---G master
+
+git rebase topic master # reapply commits on top of "master" base tip
+
+                              topic
+    D---E---F---G---A---B---C master
+```
+
+```bash
+git rebase -i HEAD~n # TODO: <add_coment>
+```
+
+#### - `merge` join two or more development histories together
+
+```bash
+# assume the following history exists and the current branch is "master"
+
+          A---B---C topic
+         /
+    D---E---F---G master
+
+git merge topic # replay the changes made on the "topic" branch since it diverged from "master"
+
+          A---B---C topic
+         /         \
+    D---E---F---G---H master
+```
+
+#### - `push` TODO: <add_desc>
+
+```bash
+git push origin HEAD --force # TODO: <add_coment>
+```
+
+#### - `revert` TODO: <add_desc>
