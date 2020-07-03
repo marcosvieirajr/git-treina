@@ -29,7 +29,7 @@ git log --stat
 
 ```bash
 git branch dev # create branch dev
-git branch -d dev # delete branch dev
+git branch -d dev # delete local branch dev
 ```
 
 #### - `checkout` switch branches or restore working tree files
@@ -40,6 +40,7 @@ git checkout README.dm # restore README.dm file
 git checkout f5e4dfb # switch to f5e4dfb commit
 git checkout -b dev # create dev branch and switch to it
 git checkout f5e4dfb -b backup # create backup branch from f5e4dfb commit and switch to it
+git ckeckout f5e4dfb -- README.dm # restore README.dm file from f5e4dfb commit
 ```
 
 #### - `reflog` manage reflog information
@@ -48,7 +49,7 @@ git checkout f5e4dfb -b backup # create backup branch from f5e4dfb commit and sw
 
 ```bash
 git commit -m 'commit message'
-git commit -a -m 'commit message' # add all modified files and commit
+git commit -am 'commit message' # add all modified files and commit
 git commit --amend -m 'new commit message' # edit last commit message
 git commit --amend --no-edit # commit files in last commit skipping edit message
 ```
@@ -124,10 +125,24 @@ git merge topic # replay the changes made on the "topic" branch since it diverge
     D---E---F---G---H master
 ```
 
-#### - `push` TODO: <add_desc>
+#### - `stash` stash the changes in a dirty working directory away
 
 ```bash
-git push origin HEAD --force # TODO: <add_coment>
+git stash # saves your local modifications away and reverts the working directory to match the HEAD commit
+git stash list # list the modifications stashed away
+git stash show # inspected the modifications stashed
+git stash apply # apply a single stashed state on top of the current working tree
+git stash pop # like 'apply', but remove it from the stash list
+git stash clear # remove all the stash entries
+git stash branch dev # creates and checks out a new branch named "dev" starting from the commit at which the <stash> was originally created
+```
+
+#### - `push` update remote refs along with associated objects
+
+```bash
+git push origin --delete dev # delete remote branche dev
+git push -u origin dev # TODO: <add_coment> For every branch that is up to date or successfully pushed, add upstream (tracking) reference
+git push origin HEAD -f # TODO: <add_coment>
 ```
 
 #### - `revert` TODO: <add_desc>
